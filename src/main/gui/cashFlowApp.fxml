@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.gui.CashFlowAppController">
+   <center>
+      <fx:include fx:id="centerPane" source="csvUploadView.fxml" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <fx:include fx:id="leftPane" source="accountMenu.fxml" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <fx:include fx:id="topPane" source="toolBar.fxml" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>

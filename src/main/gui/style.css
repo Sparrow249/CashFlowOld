@@ -1,0 +1,19 @@
+.root {
+    COLOR_TOOLBAR: #000000;
+}
+
+.tool-bar {
+    -fx-background-color: COLOR_TOOLBAR;
+}
+
+.button-tool-bar {
+    -fx-background-color: COLOR_TOOLBAR;
+    -fx-font-family: Lucida sans;
+    -fx-font-size: 14px;
+    -fx-font-style: Bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+.side-bar {
+    -fx-background-color: #808080;
+}
