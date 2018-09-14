@@ -14,5 +14,4 @@ public class AccountFilterService {
         }
         return null;
     }
-
 }

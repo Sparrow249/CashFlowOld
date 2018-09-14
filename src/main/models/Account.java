@@ -2,9 +2,9 @@ package main.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Account {
-    private static List<Account> accounts = new ArrayList<>();
     private String name;
     private String iban;
     private List<Transaction> transactions = new ArrayList<>();
@@ -14,17 +14,6 @@ public class Account {
         this.iban = iban;
         this.name = name;
 
-        if (!accounts.contains(this)) {
-            accounts.add(this);
-        }
-    }
-
-    public Account(String iban) {
-        this(iban, iban);
-    }
-
-    public static void removeAccount(Account account) {
-        accounts.remove(account);
     }
 
     public void addTransaction(double amount, Category category) {
@@ -39,12 +28,20 @@ public class Account {
         addTransaction(amount, null);
     }
 
-    public static List<Account> getAccounts() {
-        return accounts;
+    public List<Transaction> getAllTransactions() {
+        return transactions;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Transaction> getTransactions(Predicate<Transaction> filter){
+        List<Transaction> filteredTransactions = new ArrayList<>();
+
+        for(Transaction transaction: transactions){
+            if(filter.test(transaction)){
+                filteredTransactions.add(transaction);
+            }
+        }
+
+        return filteredTransactions;
     }
 
     public String getName() {
