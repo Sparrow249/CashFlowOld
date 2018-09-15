@@ -11,6 +11,7 @@ public class RaboCsvTransactionReader {
     private static final String LINE_SEPERATOR = ",\"";
 
     public List<String[]> readFile(File csvFile) {
+        System.out.println("start reading csv file");
         String line;
         String[] csvTransaction;
         List<String[]> csvTransactions = new ArrayList<>();
@@ -29,6 +30,8 @@ public class RaboCsvTransactionReader {
         } catch (IOException exception) {
             exception.getStackTrace();
         }
+
+        System.out.println("finish reading csv file");
 
         return csvTransactions;
     }

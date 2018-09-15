@@ -3,7 +3,6 @@ package main.models;
 
 public class Transaction {
     private double amount;
-    private Category category;
 
     Transaction(){}
 
@@ -13,14 +12,6 @@ public class Transaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     @Override

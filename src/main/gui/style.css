@@ -17,3 +17,7 @@
 .side-bar {
     -fx-background-color: #808080;
 }
+
+.titled-pane {
+    -fx-background-color: white;
+}
