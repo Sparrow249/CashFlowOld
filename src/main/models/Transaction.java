@@ -3,8 +3,10 @@ package main.models;
 
 public class Transaction {
     private double amount;
+    private String description;
 
-    Transaction(){}
+    Transaction() {
+    }
 
     public double getAmount() {
         return amount;
@@ -12,6 +14,14 @@ public class Transaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

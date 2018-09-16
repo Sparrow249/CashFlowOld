@@ -1,24 +1,23 @@
-package main.gui.controllers;
+package main.gui.menu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import main.gui.Controller;
 
-public class AddAccountPaneController extends Controller{
-    
+public class AddAccountPaneController extends Controller {
+
     @FXML
     private TextField inputAccountIban;
-
 
     public void addAccount(ActionEvent actionEvent) {
         String iban = inputAccountIban.getText().toUpperCase();
 
-        if(isValidIbanRabo(iban)) {
-            parent.getAccountService().createAccount(iban);
+        if (isValidIbanRabo(iban)) {
+            getAccountService().createAccount(iban);
             inputAccountIban.setText("");
             parent.refresh();
-        }
-        else{
+        } else {
             System.out.println("Iban is not a valid Rabobank Nederland Iban");
         }
 

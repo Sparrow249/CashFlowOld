@@ -1,23 +1,33 @@
 .root {
-    COLOR_TOOLBAR: #000000;
+    COLOR_TOOLBAR: black;
 }
 
 .tool-bar {
     -fx-background-color: COLOR_TOOLBAR;
 }
 
-.button-tool-bar {
+.tool-bar-element {
     -fx-background-color: COLOR_TOOLBAR;
     -fx-font-family: Lucida sans;
     -fx-font-size: 14px;
-    -fx-font-style: Bold;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: white;
 }
 
-.side-bar {
-    -fx-background-color: #808080;
+.titled-pane > *.title {
+    -fx-padding: 20px;
 }
 
-.titled-pane {
+.transaction-card .description-box{
     -fx-background-color: white;
+    -fx-padding: 5px;
 }
+
+.transaction-card .title-bar{
+    -fx-padding: 5px;
+    -fx-background-color: #4682B4;
+}
+
+.overview-pane {
+}
+
+

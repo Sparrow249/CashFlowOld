@@ -12,9 +12,10 @@ public class Account {
         this.iban = iban;
     }
 
-    public void addTransaction(double amount) {
+    public void addTransaction(double amount, String description) {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
+        transaction.setDescription(description);
 
         transactions.add(transaction);
     }

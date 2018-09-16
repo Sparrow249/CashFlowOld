@@ -13,7 +13,7 @@ public class AccountService {
 
         if (!accounts.contains(account)) {
             accounts.add(account);
-            System.out.println("Created : "+iban+", "+account);
+            System.out.println("Created : " + iban + ", " + account);
         }
     }
 
