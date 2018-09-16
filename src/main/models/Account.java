@@ -2,9 +2,10 @@ package main.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.function.Predicate;
 
-public class Account {
+public class Account extends Observable {
     private String iban;
     private List<Transaction> transactions = new ArrayList<>();
 
@@ -12,11 +13,14 @@ public class Account {
         this.iban = iban;
     }
 
-    public void addTransaction(double amount) {
+    public void addTransaction(double amount, String description) {
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
+        transaction.setDescription(description);
 
         transactions.add(transaction);
+
+        notifyObservers();
     }
 
     public List<Transaction> getAllTransactions() {

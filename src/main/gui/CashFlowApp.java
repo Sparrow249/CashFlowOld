@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.gui.controllers.CashFlowAppController;
+import main.models.Account;
 import main.services.AccountService;
 
 import java.io.IOException;
@@ -13,6 +13,20 @@ import java.io.IOException;
 public class CashFlowApp extends Application {
     private static Stage mainStage;
     private static AccountService accountService;
+    private static Account selectedAccount;
+
+
+    public static AccountService getAccountService() {
+        return accountService;
+    }
+
+    public static Account getSelectedAccount() {
+        return selectedAccount;
+    }
+
+    public static void setSelectedAccount(Account selectedAccount) {
+        CashFlowApp.selectedAccount = selectedAccount;
+    }
 
     public static void main(String[] args) {
         accountService = new AccountService();
@@ -22,11 +36,10 @@ public class CashFlowApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         mainStage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/cashFlowApp.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cashFlowApp.fxml"));
         Parent root = fxmlLoader.load();
-        CashFlowAppController controller = fxmlLoader.getController();
-        controller.setAccountService(accountService);
 
+        root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("CashFlow");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
