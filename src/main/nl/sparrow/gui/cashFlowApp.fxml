@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:id="base" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.sparrow.gui.CashFlowAppController">
+    <center>
+    </center>
+    <left>
+        <fx:include fx:id="accountMenu" source="menu/accountMenu.fxml" BorderPane.alignment="CENTER"/>
+    </left>
+    <top>
+        <fx:include fx:id="toolBar" source="toolBar/toolBar.fxml" BorderPane.alignment="CENTER"/>
+    </top>
+</BorderPane>
