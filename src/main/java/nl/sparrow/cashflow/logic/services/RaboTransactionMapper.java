@@ -1,6 +1,7 @@
 package nl.sparrow.cashflow.logic.services;
 
 import nl.sparrow.cashflow.logic.models.Account;
+import nl.sparrow.cashflow.logic.services.AccountService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ public class RaboTransactionMapper {
     private static final String TRANSACTION_OTHER = "NAAM TEGENPARTIJ";
 
     private Map<String, Integer> index = new HashMap<>();
-    private AccountService accountService;
+    private AccountService       accountService;
 
 
     public RaboTransactionMapper(AccountService accountService, String[] header) {

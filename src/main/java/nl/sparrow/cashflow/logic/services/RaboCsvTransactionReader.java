@@ -16,10 +16,7 @@ public class RaboCsvTransactionReader {
         String[] csvTransaction;
         List<String[]> csvTransactions = new ArrayList<>();
 
-        //TODO try with resources on BufferedReader
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
             while ((line = reader.readLine()) != null) {
                 csvTransaction = line.split(LINE_SEPERATOR);
                 for (int i = 0; i < csvTransaction.length; i++) {
