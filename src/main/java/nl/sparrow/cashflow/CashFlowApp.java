@@ -72,11 +72,11 @@ public class CashFlowApp extends Application
 
    private static void setupLogging()
    {
-      System.out.println(System.getProperty("user.dir"));
       try (InputStream configFile = new FileInputStream("src/main/resources/logging.properties"))
       {
-         LOGGER.config("Logging setup");
          LogManager.getLogManager().readConfiguration(configFile);
+         LOGGER.config("Logging setup");
+         LOGGER.fine("user.dir = "+System.getProperty("user.dir"));
       }
         catch(FileNotFoundException e)
       {
