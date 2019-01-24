@@ -1,20 +1,22 @@
 package nl.sparrow.cashflow.logic.models;
 
-import nl.sparrow.cashflow.logic.services.mappers.Mapper;
-import nl.sparrow.cashflow.logic.services.mappers.RaboMapper;
+import nl.sparrow.cashflow.logic.services.mappers.RaboCsvDataMapper;
+import nl.sparrow.cashflow.logic.services.mappers.CsvDataMapper;
 
 public enum Bank
 {
-   RABO(new RaboMapper());
+   RABO(new RaboCsvDataMapper());
 
-   private Mapper mapper;
+   private CsvDataMapper mapper;
 
-   Bank(Mapper mapper){
+
+   Bank(CsvDataMapper mapper)
+   {
       this.mapper = mapper;
    }
 
 
-   public Mapper getMapper()
+   public CsvDataMapper getMapper()
    {
       return mapper;
    }

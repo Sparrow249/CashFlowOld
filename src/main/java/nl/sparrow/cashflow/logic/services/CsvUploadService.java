@@ -1,39 +1,85 @@
 package nl.sparrow.cashflow.logic.services;
 
-import nl.sparrow.cashflow.logic.models.Bank;
+import nl.sparrow.cashflow.logic.exceptions.NoDataFoundException;
 import nl.sparrow.cashflow.logic.models.CsvData;
-import nl.sparrow.cashflow.logic.services.mappers.Mapper;
+import nl.sparrow.cashflow.logic.models.Bank;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CsvUploadService
 {
    private static final String LINE_SEPERATOR = "\",\"";
 
-   public void uploadFile(File csvFile, Bank bank) {
-      String line;
-      String[] csvTransaction;
-      List<String[]> csvTransactions = new ArrayList<>();
+   private final Bank BANK;
 
-      try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
-         while ((line = reader.readLine()) != null) {
-            csvTransaction = line.split(LINE_SEPERATOR);
-            for (int i = 0; i < csvTransaction.length; i++) {
-               csvTransaction[i] = csvTransaction[i].replace(",", ".");
-            }
-            csvTransactions.add(csvTransaction);
+
+   public CsvUploadService(Bank bank)
+   {
+      this.BANK = bank;
+   }
+
+
+   public void upload(File csvFile, AccountService accountService)
+   {
+      CsvData transactionData = readData(csvFile);
+
+      BANK.getMapper().map(transactionData, accountService);
+   }
+
+
+   private CsvData readData(File csvFile)
+   {
+      CsvData csvData = new CsvData();
+      List<Map<String, String>> dataList = new ArrayList<>();
+
+      try (BufferedReader reader = new BufferedReader(new FileReader(csvFile)))
+      {
+         if (reader.lines().count() < 2)
+         {
+            throw new NoDataFoundException();
          }
-      } catch (IOException exception) {
-         exception.getStackTrace();
+         csvData.setHeader(reader.readLine().split(LINE_SEPERATOR));
+
+         reader.lines()
+            .map(line -> line.split(LINE_SEPERATOR))
+            .map(data -> Arrays.stream(data).map(value -> value = value.replace(',', '.')).toArray(String[]::new))
+            .map(data -> createDataMap(csvData.getHeader(), data))
+            .forEach(dataMap -> dataList.add(dataMap));
+
+         csvData.setData(dataList);
+      }
+      catch (IOException exception)
+      {
+         exception.getStackTrace();//TODO new exception?
       }
 
-      CsvData csvData = new CsvData(csvTransactions.remove(0), csvTransactions);
-      Mapper mapper = bank.getMapper();
-      mapper.map(csvData);
+      return csvData;
+   }
+
+
+   private Map<String, String> createDataMap(String[] header, String[] data)
+   {
+      Map<String, String> dataMap = new HashMap<>();
+      if (header.length != data.length)
+      {
+         throw new RuntimeException("Header and data are incompatible"); //TODO new exception
+      }
+      else
+      {
+         for (int i = 0; i < header.length; i++)
+         {
+            dataMap.put(header[i], data[i]);
+         }
+      }
+
+      return dataMap;
    }
 }

@@ -1,13 +1,8 @@
 package nl.sparrow.cashflow.logic.services;
 
 import nl.sparrow.cashflow.logic.exceptions.InvalidIbanException;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-
-import java.util.Observer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -15,18 +10,20 @@ import static org.junit.Assert.assertNotNull;
 //@RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest
 {
-//   @Mock
+   //   @Mock
    private AccountService accountService;
 
    private static final String IBAN = "NL00TEST0123456789";
 
    //TODO test if observers are notified -> aka their update method is called
 
+
    @Before
    public void setup()
    {
       accountService = new AccountService();
    }
+
 
    @Test
    public void testAddAccount_validIban()
