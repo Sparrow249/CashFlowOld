@@ -26,5 +26,6 @@
 hs_err_pid*
 
 # Directories
-/out/*
-/.idea/*
+/out
+/.idea
+/lib

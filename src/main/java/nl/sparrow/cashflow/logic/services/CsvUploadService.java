@@ -13,10 +13,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CsvUploadService
 {
-   private static final String LINE_SEPERATOR = "\",\"";
+   private final static Logger LOGGER         = Logger.getLogger(CsvUploadService.class.getName());
+
+   private static final  String LINE_SEPERATOR = "\",\"";
 
    private final Bank BANK;
 
@@ -29,6 +32,7 @@ public class CsvUploadService
 
    public void upload(File csvFile, AccountService accountService)
    {
+      LOGGER.finer("Uploading " + csvFile.getPath());
       CsvData transactionData = readData(csvFile);
 
       BANK.getMapper().map(transactionData, accountService);
@@ -58,6 +62,7 @@ public class CsvUploadService
       }
       catch (IOException exception)
       {
+         LOGGER.warning("Unable to read File");
          exception.getStackTrace();//TODO new exception?
       }
 
@@ -70,6 +75,7 @@ public class CsvUploadService
       Map<String, String> dataMap = new HashMap<>();
       if (header.length != data.length)
       {
+         LOGGER.warning("Data komt niet overeen met de header");
          throw new RuntimeException("Header and data are incompatible"); //TODO new exception
       }
       else
