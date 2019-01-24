@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 public class Account extends Observable {
-    private String iban;
-    private List<Transaction> transactions = new ArrayList<>();
+    private final static Logger            LOGGER       = Logger.getLogger(Account.class.getName());
+    private          String            iban;
+    private          List<Transaction> transactions = new ArrayList<>();
 
     public Account(String iban) {
         this.iban = iban;
@@ -20,10 +22,13 @@ public class Account extends Observable {
 
         transactions.add(transaction);
 
+        setChanged();
         notifyObservers();
+        LOGGER.fine("Transaction "+transaction.toString()+" added to "+this.iban);
     }
 
     public List<Transaction> getAllTransactions() {
+        LOGGER.finer("All transactions requested: "+transactions);
         return transactions;
     }
 
@@ -36,6 +41,7 @@ public class Account extends Observable {
             }
         }
 
+        LOGGER.finer("Transactions requested with "+filter+" requested: "+filteredTransactions);
         return filteredTransactions;
     }
 

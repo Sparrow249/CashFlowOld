@@ -8,43 +8,86 @@ import javafx.stage.Stage;
 import nl.sparrow.cashflow.logic.models.Account;
 import nl.sparrow.cashflow.logic.services.AccountService;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-public class CashFlowApp extends Application {
-    private static Stage mainStage;
-    private static AccountService accountService;
-    private static Account selectedAccount;
+public class CashFlowApp extends Application
+{
+   private static final Logger LOGGER = Logger.getLogger(CashFlowApp.class.getName());
+
+   private static Stage          mainStage;
+   private static AccountService accountService;
+   private static Account        selectedAccount;
 
 
-    public static AccountService getAccountService() {
-        return accountService;
-    }
+   public static AccountService getAccountService()
+   {
+      return accountService;
+   }
 
-    public static Account getSelectedAccount() {
-        return selectedAccount;
-    }
 
-    public static void setSelectedAccount(Account selectedAccount) {
-        CashFlowApp.selectedAccount = selectedAccount;
-    }
+   public static Account getSelectedAccount()
+   {
+      return selectedAccount;
+   }
 
-    public static void main(String[] args) {
-        accountService = new AccountService();
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        mainStage = primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/cashFlowApp.fxml"));
-        Parent root = fxmlLoader.load();
+   public static void setSelectedAccount(Account selectedAccount)
+   {
+      CashFlowApp.selectedAccount = selectedAccount;
+      LOGGER.info("App account set to: " + selectedAccount.getIban());
+   }
 
-        root.getStylesheets().add(getClass().getResource("gui/style.css").toExternalForm());
-        primaryStage.setTitle("CashFlow");
-        primaryStage.setScene(new Scene(root, 800, 500));
-        primaryStage.show();
 
-        //TODO: change window titlebar layout?
-    }
+   public static void main(String[] args)
+   {
+      setupLogging();
+      accountService = new AccountService();
+      launch(args);
+   }
+
+
+   @Override
+   public void start(Stage primaryStage)
+      throws IOException
+   {
+      mainStage = primaryStage;
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/cashFlowApp.fxml"));
+      Parent root = fxmlLoader.load();
+
+      root.getStylesheets().add(getClass().getResource("gui/style.css").toExternalForm());
+      primaryStage.setTitle("CashFlow");
+      primaryStage.setScene(new Scene(root, 800, 500));
+      primaryStage.show();
+
+      //TODO: change window titlebar layout?
+   }
+
+
+   private static void setupLogging()
+   {
+      try (InputStream configFile = new FileInputStream("src/main/resources/logging.properties"))
+      {
+         LogManager.getLogManager().readConfiguration(configFile);
+         LOGGER.config("Logging setup");
+         LOGGER.fine("user.dir = "+System.getProperty("user.dir"));
+      }
+        catch(FileNotFoundException e)
+      {
+         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, e.getMessage(), e);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, e.getMessage(), e);
+      }
+   }
 
 }
