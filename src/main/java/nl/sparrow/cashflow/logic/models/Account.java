@@ -1,6 +1,7 @@
 package nl.sparrow.cashflow.logic.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Observable;
 import java.util.function.Predicate;
@@ -15,16 +16,19 @@ public class Account extends Observable {
         this.iban = iban;
     }
 
-    public void addTransaction(double amount, String description) {
-        Transaction transaction = new Transaction();
-        transaction.setAmount(amount);
-        transaction.setDescription(description);
-
+    public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
 
         setChanged();
         notifyObservers();
         LOGGER.fine("Transaction "+transaction.toString()+" added to "+this.iban);
+    }
+
+    public void addTransactions(Collection<Transaction> transactions) {
+        transactions.addAll(transactions);
+
+        setChanged();
+        notifyObservers();
     }
 
     public List<Transaction> getAllTransactions() {

@@ -3,7 +3,7 @@ package nl.sparrow.cashflow.gui.menu;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
-import nl.sparrow.cashflow.CashFlowApp;
+import nl.sparrow.cashflow.gui.CashFlowApp;
 import nl.sparrow.cashflow.gui.Controller;
 import nl.sparrow.cashflow.logic.models.Account;
 

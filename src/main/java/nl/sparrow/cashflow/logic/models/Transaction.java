@@ -5,9 +5,6 @@ public class Transaction {
     private double amount;
     private String description;
 
-    Transaction() {
-    }
-
     public double getAmount() {
         return amount;
     }

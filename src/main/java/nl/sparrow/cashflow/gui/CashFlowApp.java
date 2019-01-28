@@ -1,4 +1,4 @@
-package nl.sparrow.cashflow;
+package nl.sparrow.cashflow.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import nl.sparrow.cashflow.logic.models.Account;
 import nl.sparrow.cashflow.logic.services.AccountService;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,10 +57,10 @@ public class CashFlowApp extends Application
       throws IOException
    {
       mainStage = primaryStage;
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/cashFlowApp.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cashFlowApp.fxml"));
       Parent root = fxmlLoader.load();
 
-      root.getStylesheets().add(getClass().getResource("gui/style.css").toExternalForm());
+      root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
       primaryStage.setTitle("CashFlow");
       primaryStage.setScene(new Scene(root, 800, 500));
       primaryStage.show();
@@ -76,9 +75,9 @@ public class CashFlowApp extends Application
       {
          LogManager.getLogManager().readConfiguration(configFile);
          LOGGER.config("Logging setup");
-         LOGGER.fine("user.dir = "+System.getProperty("user.dir"));
+         LOGGER.fine("user.dir = " + System.getProperty("user.dir"));
       }
-        catch(FileNotFoundException e)
+      catch (FileNotFoundException e)
       {
          e.printStackTrace();
          LOGGER.log(Level.SEVERE, e.getMessage(), e);
