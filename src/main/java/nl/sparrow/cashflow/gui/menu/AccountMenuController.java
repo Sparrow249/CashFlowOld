@@ -23,6 +23,7 @@ public class AccountMenuController extends Controller implements Observer
    public void initialize()
    {
       CashFlowApp.getAccountService().addObserver(this);
+      update(null, null);
    }
 
    @Override

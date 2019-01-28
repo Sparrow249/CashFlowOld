@@ -52,7 +52,7 @@ public class RaboTransactionMapper {
             Account account = accountService.getAccount(accountIban);
             if (account != null) {
                 System.out.println(accountIban + ": " + account);
-                account.addTransaction(transactionAmount, transactionDescription);
+//                account.addTransaction(transactionAmount, transactionDescription);
 
                 System.out.println("Iban, bedrag : " + accountIban + ", " + transactionAmount);
                 System.out.println("omschrijving: " + transactionDescription);
