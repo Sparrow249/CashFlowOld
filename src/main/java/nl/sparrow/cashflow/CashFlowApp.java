@@ -6,16 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.sparrow.cashflow.logic.models.Account;
-import nl.sparrow.cashflow.logic.models.Transaction;
 import nl.sparrow.cashflow.logic.services.AccountService;
 import nl.sparrow.cashflow.logic.utils.TestScenarioTDateFilter;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -80,9 +77,9 @@ public class CashFlowApp extends Application
       {
          LogManager.getLogManager().readConfiguration(configFile);
          LOGGER.config("Logging setup");
-         LOGGER.fine("user.dir = "+System.getProperty("user.dir"));
+         LOGGER.fine("user.dir = " + System.getProperty("user.dir"));
       }
-        catch(FileNotFoundException e)
+      catch (FileNotFoundException e)
       {
          e.printStackTrace();
          LOGGER.log(Level.SEVERE, e.getMessage(), e);

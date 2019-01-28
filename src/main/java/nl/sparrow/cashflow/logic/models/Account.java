@@ -48,7 +48,7 @@ public class Account extends Observable
          }
       }
 
-      LOGGER.finer("["+this.toString()+"] Transactions requested with " + filter + " requested: " + filteredTransactions);
+      LOGGER.finer("[" + this.toString() + "] Transactions requested with " + filter + " requested: " + filteredTransactions);
       return filteredTransactions;
    }
 
