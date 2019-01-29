@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import nl.sparrow.cashflow.gui.menu.AccountMenuController;
 import nl.sparrow.cashflow.gui.toolBar.ToolBarController;
 
+import javax.tools.Tool;
 import java.io.IOException;
 
 public class CashFlowAppController extends Controller {
@@ -21,25 +21,19 @@ public class CashFlowAppController extends Controller {
     @FXML
     private AnchorPane leftPane;
 
-
     @FXML
     private ToolBarController toolBarController;
-
-    @FXML
-    private AccountMenuController accountMenuController;
 
     private Controller contentController;
 
     public void initialize() {
-
         toolBarController.setParent(this);
-//        accountMenuController.setParent(this);
-        switchScene(View.CSV_UPLOAD_VIEW.toString());
+        switchScene(ContentView.CSV_UPLOAD_VIEW);
     }
 
     @Override
-    public void switchScene(String fxml) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+    public void switchScene(ContentView contentView) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(contentView.getFxmlPath()));
         try {
             AnchorPane view = fxmlLoader.load();
             base.setCenter(view);
@@ -47,7 +41,6 @@ public class CashFlowAppController extends Controller {
             e.printStackTrace();
         }
         contentController = fxmlLoader.getController();
-        contentController.setParent(this);
     }
 
 }

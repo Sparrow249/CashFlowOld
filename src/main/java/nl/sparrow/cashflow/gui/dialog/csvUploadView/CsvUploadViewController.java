@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.gui.Controller;
-import nl.sparrow.cashflow.gui.View;
+import nl.sparrow.cashflow.gui.ContentView;
 import nl.sparrow.cashflow.logic.models.Bank;
 import nl.sparrow.cashflow.logic.services.CsvUploadService;
 
@@ -32,7 +32,7 @@ public class CsvUploadViewController extends Controller
          csvUploadService.upload(file, CashFlowApp.getAccountService());
       }
 
-      parent.switchScene(View.TRANSACTION_OVERVIEW.toString());
+      parent.switchScene(ContentView.TRANSACTION_OVERVIEW);
    }
 
 

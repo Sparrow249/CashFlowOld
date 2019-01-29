@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="nl.sparrow.cashflow.gui.menu.AccountMenuController">
-    <children>
+<TitledPane text="Account" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
         <Accordion fx:id="menu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                    AnchorPane.topAnchor="0.0">
             <panes>
-                <fx:include fx:id="addAccountPane" source="addAccountPane.fxml"/>
             </panes>
         </Accordion>
-    </children>
-</AnchorPane>
+    </content>
+</TitledPane>
