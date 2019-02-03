@@ -1,4 +1,4 @@
-package nl.sparrow.cashflow.gui;
+package nl.sparrow.cashflow;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -57,10 +57,10 @@ public class CashFlowApp extends Application
       throws IOException
    {
       mainStage = primaryStage;
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cashFlowApp.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gui/cashFlowApp.fxml"));
       Parent root = fxmlLoader.load();
 
-      root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+      root.getStylesheets().add(getClass().getResource("gui/style.css").toExternalForm());
       primaryStage.setTitle("CashFlow");
       primaryStage.setScene(new Scene(root, 800, 500));
       primaryStage.show();

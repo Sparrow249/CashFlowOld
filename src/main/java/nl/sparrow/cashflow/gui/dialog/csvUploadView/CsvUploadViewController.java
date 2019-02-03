@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import nl.sparrow.cashflow.gui.CashFlowApp;
+import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.gui.Controller;
 import nl.sparrow.cashflow.gui.View;
 import nl.sparrow.cashflow.logic.models.Bank;

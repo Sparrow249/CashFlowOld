@@ -1,6 +1,6 @@
 package nl.sparrow.cashflow.logic.utils;
 
-import nl.sparrow.cashflow.gui.CashFlowApp;
+import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.logic.services.AccountService;
 import nl.sparrow.cashflow.logic.services.CsvUploadService;
 

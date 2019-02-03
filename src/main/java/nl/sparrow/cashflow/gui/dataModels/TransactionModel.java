@@ -9,7 +9,7 @@ public class TransactionModel {
     private SimpleDoubleProperty amount;
 
     public TransactionModel(Transaction transaction) {
-        this.description = new SimpleStringProperty(transaction.getDescription());
+        this.description = new SimpleStringProperty(transaction.getNameOther() + " - "+ transaction.getDescription());
         this.amount = new SimpleDoubleProperty(transaction.getAmount());
     }
 
