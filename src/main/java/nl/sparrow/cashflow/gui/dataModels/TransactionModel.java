@@ -5,20 +5,18 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import nl.sparrow.cashflow.logic.models.Transaction;
 
-import java.time.LocalDate;
-
 public class TransactionModel
 {
-   private SimpleStringProperty            description;
-   private SimpleDoubleProperty            amount;
-   private SimpleObjectProperty<LocalDate> date;
+   private SimpleStringProperty         description;
+   private SimpleDoubleProperty         amount;
+   private SimpleObjectProperty<String> date;
 
 
    public TransactionModel(Transaction transaction)
    {
-      this.description = new SimpleStringProperty(transaction.getDescription());
+      this.description = new SimpleStringProperty(transaction.getNameOther() + " - " + transaction.getDescription());
       this.amount = new SimpleDoubleProperty(transaction.getAmount());
-      this.date = new SimpleObjectProperty<>(transaction.getDate());
+      this.date = new SimpleObjectProperty<String>(transaction.getDate());
    }
 
 
@@ -58,19 +56,19 @@ public class TransactionModel
    }
 
 
-   public LocalDate getDate()
+   public String getDate()
    {
       return date.get();
    }
 
 
-   public SimpleObjectProperty<LocalDate> dateProperty()
+   public SimpleObjectProperty<String> dateProperty()
    {
       return date;
    }
 
 
-   public void setDate(LocalDate date)
+   public void setDate(String date)
    {
       this.date.set(date);
    }

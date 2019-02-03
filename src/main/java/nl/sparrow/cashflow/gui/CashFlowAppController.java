@@ -41,6 +41,7 @@ public class CashFlowAppController extends Controller {
             e.printStackTrace();
         }
         contentController = fxmlLoader.getController();
+        contentController.setParent(this);
     }
 
 }

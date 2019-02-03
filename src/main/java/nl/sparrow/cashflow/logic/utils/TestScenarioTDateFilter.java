@@ -13,21 +13,17 @@ public class TestScenarioTDateFilter
       accountService.addAccount(TEST_IBAN);
       final Account TEST_ACCOUNT = accountService.getAccount(TEST_IBAN);
 
-      Transaction t = createTransaction(100.00, "test", LocalDate.of(2019, 1, 1));
+      Transaction t = createTransaction(LocalDate.of(2019, 1, 1),100.00, "NL99TEST9876543210", "test");
       TEST_ACCOUNT.addTransaction(t);
-      t = createTransaction(12.34, "test", LocalDate.of(2019,1,2));
+      t = createTransaction(LocalDate.of(2019, 1, 2),12.34, "NL99TEST9876543210", "test");
       TEST_ACCOUNT.addTransaction(t);
-      t = createTransaction(43.21, "test", LocalDate.of(2018,12,1));
+      t = createTransaction(LocalDate.of(2018, 12, 1),43.21, "NL99TEST9876543210", "test");
       TEST_ACCOUNT.addTransaction(t);
 
    }
 
-   private static Transaction createTransaction(Double amount, String description, LocalDate date){
-      Transaction transaction = new Transaction();
-
-      transaction.setAmount(amount);
-      transaction.setDescription(description);
-      transaction.setDate(date);
+   private static Transaction createTransaction(LocalDate date, Double amount, String otherIban, String description){
+      Transaction transaction = new Transaction.Builder(date, amount, otherIban).setDescription(description).build();
 
       return transaction;
    }

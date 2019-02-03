@@ -40,6 +40,8 @@ public class CsvUploadService
          throw new NoDataFoundException();
       }
       BANK.getMapper().map(transactionData, accountService);
+
+      LOGGER.finer("Upload succesfull");
    }
 
 
