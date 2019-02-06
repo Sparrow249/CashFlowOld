@@ -80,7 +80,7 @@ public class YearPaneController implements Initializable, Observer
    {
       List<Transaction> transactions = account.getAllTransactions();
       transactions.stream()
-         .map(transaction -> transaction.getDateYear())
+         .map(transaction -> transaction.getDate().getYear())
          .distinct()
          .forEach(year -> {
             if (!yearPaneMap.containsKey(year))

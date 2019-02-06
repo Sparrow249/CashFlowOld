@@ -23,7 +23,7 @@ public class TestScenarioTDateFilter
    }
 
    private static Transaction createTransaction(LocalDate date, Double amount, String otherIban, String description){
-      Transaction transaction = new Transaction.Builder(date, amount, otherIban).setDescription(description).build();
+      Transaction transaction = new Transaction.Builder(amount, date, otherIban).setDescription(description).build();
 
       return transaction;
    }

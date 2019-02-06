@@ -41,7 +41,7 @@ public class RaboCsvDataMapper implements CsvDataMapper
                LocalDate date = LocalDate.parse(data.get(T_DATE), PATTERN_DATUM);
                try
                {
-                  Transaction transaction = new Transaction.Builder(date, amount, otherIban).setNameOther(otherName).setDescription(description).build();
+                  Transaction transaction = new Transaction.Builder(amount, date, otherIban).setNameOther(otherName).setDescription(description).build();
                   System.out.println(transaction.toString());
                   account.addTransaction(transaction);
                }
