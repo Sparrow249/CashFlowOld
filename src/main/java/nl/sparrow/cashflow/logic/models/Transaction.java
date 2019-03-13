@@ -2,9 +2,7 @@ package nl.sparrow.cashflow.logic.models;
 
 import com.sun.istack.internal.NotNull;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.time.Month;
 
 public final class Transaction
 {
@@ -59,11 +57,11 @@ public final class Transaction
    public String toString()
    {
       return new StringBuilder("[Transaction]")
-         .append(" --amount=" + amount)
-         .append(" --date=" + date)
-         .append(" --otherIban=" + ibanOther)
-         .append(" --othername=" + nameOther)
-         .append(" --description=" + description)
+         .append(" amount=" + amount)
+         .append(" date=" + date)
+         .append(" otherIban=" + ibanOther)
+         .append(" othername=" + nameOther)
+         .append(" description=" + description)
          .toString();
    }
 

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class CashFlowApp extends Application
 {
-   private static final Logger LOGGER = Logger.getLogger(CashFlowApp.class.getName());
+   public static final Logger LOGGER = Logger.getLogger(CashFlowApp.class.getName());
 
    private static Stage          mainStage;
    private static AccountService accountService;
@@ -29,19 +29,6 @@ public class CashFlowApp extends Application
    public static AccountService getAccountService()
    {
       return accountService;
-   }
-
-
-   public static Account getSelectedAccount()
-   {
-      return selectedAccount;
-   }
-
-
-   public static void setSelectedAccount(Account selectedAccount)
-   {
-      CashFlowApp.selectedAccount = selectedAccount;
-      LOGGER.info("App account set to: " + selectedAccount.getIban());
    }
 
 
