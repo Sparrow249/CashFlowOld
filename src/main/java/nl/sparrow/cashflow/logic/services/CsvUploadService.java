@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import java.util.Observable;
 
-public class CsvUploadService
+public class CsvUploadService extends Observable
 {
    private static final String LINE_SEPERATOR = "\",\"";
 
@@ -55,10 +55,10 @@ public class CsvUploadService
          {
             String[] header = reader.readLine().split(LINE_SEPERATOR);
             header = Arrays.stream(header).map(attr -> attr.toUpperCase().replace("\"", "")).toArray(String[]::new);
-//            for (int i = 0; i < header.length; i++)
-//            {
-//               header[i] = header[i].toUpperCase().replace("\"", "");
-//            }
+            //            for (int i = 0; i < header.length; i++)
+            //            {
+            //               header[i] = header[i].toUpperCase().replace("\"", "");
+            //            }
             csvData.setHeader(header);
          }
          catch (NullPointerException e)

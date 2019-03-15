@@ -20,7 +20,7 @@ public class AddAccountPaneController extends Controller
 
       try
       {
-         CashFlowApp.getAccountService().addAccount(iban);
+         CashFlowApp.getAppState().getAccountService().addAccount(iban);
       }
       catch (InvalidIbanException ex)
       {

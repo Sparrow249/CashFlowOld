@@ -9,8 +9,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.gui.Controller;
 import nl.sparrow.cashflow.gui.dataModels.TransactionModel;
+import nl.sparrow.cashflow.gui.menu.AccountMenuSelection;
+import nl.sparrow.cashflow.logic.models.Account;
 import nl.sparrow.cashflow.logic.models.Transaction;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -18,15 +21,9 @@ import java.util.Observer;
 
 public class TransactionOverviewController extends Controller implements Observer
 {
-
-   //    @FXML
-   //    private VBox vBox;
-
    @FXML
    private TableView<TransactionModel> tbTransactions;
 
-   //    @FXML
-   //    private TableColumn<Transaction, String> tbcDate;
    @FXML
    private TableColumn<TransactionModel, String> tbcDate;
    @FXML
@@ -36,11 +33,16 @@ public class TransactionOverviewController extends Controller implements Observe
 
    private ObservableList<TransactionModel> transactions;
 
+   private CashFlowApp.State appState;
 
    public void initialize()
    {
-      CashFlowApp.getAccountService().getAllAccounts().stream().forEach(account -> account.addObserver(this));
-      //        tbcDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
+      this.appState = CashFlowApp.getAppState();
+
+      appState.addObserver(this);
+      appState.getAccountService().addObserver(this);
+      appState.getAccountService().getAllAccounts().stream().forEach(account -> account.addObserver(this));
+
       tbcDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
       tbcAmount.setCellValueFactory(new PropertyValueFactory<>("Amount"));
       tbcDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
@@ -50,7 +52,21 @@ public class TransactionOverviewController extends Controller implements Observe
 
    private List<TransactionModel> getTableData()
    {
-      List<Transaction> transactionList = CashFlowApp.getAccountService().getAllAccounts().get(0).getAllTransactions();
+      List<Transaction> transactionList;
+
+      AccountMenuSelection selection = appState.getAccountMenuSelection();
+      Account account = selection.getAccount();
+      Integer year = selection.getYear();
+      Month month = selection.getMonth();
+
+      if(account == null)
+      {
+         transactionList = appState.getAccountService().getAllAccounts().get(0).getAllTransactions();
+      }
+      else{
+         transactionList = account.getTransactions(transaction -> year != null ? transaction.getDate().getYear() == year : true && month != null ? transaction.getDate().getMonth().equals(month) : true);
+      }
+
       List<TransactionModel> tableData = new ArrayList<>();
 
       for (Transaction transaction : transactionList)
@@ -62,15 +78,10 @@ public class TransactionOverviewController extends Controller implements Observe
    }
 
 
-   private void updateTableData(List<TransactionModel> data)
-   {
-      transactions = FXCollections.observableArrayList(data);
-   }
-
-
    @Override
    public void update(Observable o, Object arg)
    {
+      this.appState = CashFlowApp.getAppState();
       transactions = FXCollections.observableArrayList(getTableData());
       tbTransactions.setItems(transactions);
    }

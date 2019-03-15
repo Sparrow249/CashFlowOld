@@ -29,7 +29,7 @@ public class CsvUploadViewController extends Controller
       if (file != null)
       {
          CsvUploadService csvUploadService = new CsvUploadService(Bank.RABO);
-         csvUploadService.upload(file, CashFlowApp.getAccountService());
+         csvUploadService.upload(file, CashFlowApp.getAppState().getAccountService());
       }
 
       parent.switchScene(ContentView.TRANSACTION_OVERVIEW);

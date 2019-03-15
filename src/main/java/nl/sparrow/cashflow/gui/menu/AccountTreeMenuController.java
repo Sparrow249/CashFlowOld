@@ -5,10 +5,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import nl.sparrow.cashflow.CashFlowApp;
-import nl.sparrow.cashflow.gui.Controller;
 import nl.sparrow.cashflow.logic.models.Account;
-import nl.sparrow.cashflow.logic.models.Transaction;
-import nl.sparrow.cashflow.logic.services.AccountService;
 
 import java.time.Month;
 import java.time.format.TextStyle;
@@ -19,7 +16,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.Collectors;
 
-public class AccountTreeMenuController extends Controller implements Observer
+public class AccountTreeMenuController implements Observer
 {
    @FXML
    private TreeView menu;
@@ -28,15 +25,25 @@ public class AccountTreeMenuController extends Controller implements Observer
 
    private TreeItem<String> selectedItem = null;
 
+   private CashFlowApp.State appState;
+
+
    public void initialize()
    {
-      CashFlowApp.getAccountService().addObserver(this);
+      this.appState = CashFlowApp.getAppState();
+
+      appState.getAccountService().addObserver(this);
+      appState.getAccountService().getAllAccounts().stream().forEach(account -> account.addObserver(this));
+
+      appState.setAccountMenuSelection(new AccountMenuSelection(null, null, null));
       menu.setRoot(accountsTree);
       update(null, null);
    }
 
-   public void onMouseClicked(MouseEvent mouseEvent){
-      TreeItem<String> newSelectedItem = (TreeItem) menu.getSelectionModel().getSelectedItem();
+
+   public void onMouseClicked(MouseEvent mouseEvent)
+   {
+      TreeItem<String> newSelectedItem = (TreeItem)menu.getSelectionModel().getSelectedItem();
 
       if (newSelectedItem != null && !newSelectedItem.equals(selectedItem))
       {
@@ -62,40 +69,33 @@ public class AccountTreeMenuController extends Controller implements Observer
                break;
          }
 
-         List<Transaction> transactions = getTransactions(sAccount, sYear, sMonth);
+         Account account = sAccount == null ? null : appState.getAccountService().getAccount(sAccount);
+         Integer year = sYear == null ? null : Integer.parseInt(sYear);
+         Month month = sMonth == null ? null : Month.valueOf(sMonth.toUpperCase());
 
-         System.out.println("-------");
-         transactions.stream().forEach(transaction -> System.out.println(transaction));
+         appState.setAccountMenuSelection(new AccountMenuSelection(account, year, month));
       }
    }
 
-   private List<Transaction> getTransactions(String sAccount, String sYear, String sMonth){
-      Account account = CashFlowApp.getAccountService().getAccount(sAccount);
-      List<Transaction> transactions = account.getTransactions(transaction -> sYear != null ? transaction.getDate().getYear() == Integer.parseInt(sYear) : true
-                                                                              && sMonth != null ? transaction.getDate().getMonth().name().equals(sMonth) : true
-      );
-
-      return transactions;
-   }
 
    @Override
    public void update(Observable o, Object arg)
    {
-      AccountService accountService = CashFlowApp.getAccountService();
+      this.appState = CashFlowApp.getAppState();
 
       //update account tabs
-      List<Account> accounts = CashFlowApp.getAccountService().getAllAccounts();
+      List<Account> accounts = appState.getAccountService().getAllAccounts();
       TreeViewHelper.syncTreeItem(accountsTree, accounts, account -> account.getIban());
 
       accountsTree.getChildren().stream()
          .forEach(tiAccount -> {
-            Account account = accountService.getAccount(tiAccount.getValue());
+            Account account = appState.getAccountService().getAccount(tiAccount.getValue());
 
             //update year tabs
             List<Integer> years = account.getAllTransactions().stream()
                .map(transaction -> transaction.getDate().getYear())
                .distinct()
-               .sorted((y1, y2) -> y2-y1)
+               .sorted((y1, y2) -> y2 - y1)
                .collect(Collectors.toList());
 
             TreeViewHelper.syncTreeItem(tiAccount, years, year -> year.toString());
@@ -112,6 +112,8 @@ public class AccountTreeMenuController extends Controller implements Observer
                   TreeViewHelper.syncTreeItem(tiYear, months, month -> month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
                });
          });
+
+      accounts.stream().forEach(account -> account.addObserver(this));
 
       CashFlowApp.LOGGER.fine("Updated menu treeview");
    }
