@@ -54,7 +54,7 @@ public class CashFlowApp extends Application
          this.accountMenuSelection = accountMenuSelection;
          setChanged();
          notifyObservers();
-         LOGGER.fine("Changed selecetion to: "+this.accountMenuSelection.toString());
+         LOGGER.fine("Changed selection to: "+this.accountMenuSelection.toString());
       }
    }
 

@@ -84,5 +84,7 @@ public class TransactionOverviewController extends Controller implements Observe
       this.appState = CashFlowApp.getAppState();
       transactions = FXCollections.observableArrayList(getTableData());
       tbTransactions.setItems(transactions);
+
+      CashFlowApp.LOGGER.finer("Updated transaction overview");
    }
 }

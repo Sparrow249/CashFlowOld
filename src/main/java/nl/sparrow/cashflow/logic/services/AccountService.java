@@ -23,7 +23,7 @@ public class AccountService extends Observable {
 
                 setChanged();
                 notifyObservers();
-                CashFlowApp.LOGGER.fine("Account "+account.getIban()+" added");
+                CashFlowApp.LOGGER.fine("Account added: "+ account);
             }
         }
         else{
@@ -37,7 +37,7 @@ public class AccountService extends Observable {
 
         setChanged();
         notifyObservers();
-        CashFlowApp.LOGGER.fine("Account "+account.getIban()+" removed");
+        CashFlowApp.LOGGER.fine("Account removed: "+ account);
     }
 
     public Account getAccount(String iban) {

@@ -1,16 +1,16 @@
 package nl.sparrow.cashflow.logic.models;
 
+import nl.sparrow.cashflow.CashFlowApp;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 public class Account extends Observable
 {
-   private final static Logger            LOGGER       = Logger.getLogger(Account.class.getName());
-   private final        String            iban;
-   private              List<Transaction> transactions = new ArrayList<>();
+   private final String            iban;
+   private       List<Transaction> transactions = new ArrayList<>();
 
 
    public Account(String iban)
@@ -25,13 +25,13 @@ public class Account extends Observable
 
       setChanged();
       notifyObservers();
-      LOGGER.fine("Transaction " + transaction.toString() + " added to " + this.iban);
+      CashFlowApp.LOGGER.fine("Transaction added to " + this + ": " + transaction);
    }
 
 
    public List<Transaction> getAllTransactions()
    {
-      LOGGER.finer("All transactions requested: " + transactions);
+      CashFlowApp.LOGGER.finer("All transactions requested for:" + this);
       return transactions;
    }
 
@@ -48,7 +48,7 @@ public class Account extends Observable
          }
       }
 
-      LOGGER.finer("[" + this.toString() + "] Transactions requested with " + filter + " requested: " + filteredTransactions);
+      CashFlowApp.LOGGER.finer("Filtered transactions requested for: " + this);
       return filteredTransactions;
    }
 
@@ -77,5 +77,14 @@ public class Account extends Observable
    public int hashCode()
    {
       return iban.hashCode();
+   }
+
+
+   @Override
+   public String toString()
+   {
+      return new StringBuilder("[Account]")
+         .append(" iban=" + iban)
+         .toString();
    }
 }

@@ -14,8 +14,6 @@ public class LogicLogFilter implements Filter
    {
       String[] logicLoggers = {
          CashFlowApp.class.getName(),
-         AccountService.class.getName(),
-         CsvUploadService.class.getName()
       };
 
 

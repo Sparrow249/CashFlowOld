@@ -115,6 +115,6 @@ public class AccountTreeMenuController implements Observer
 
       accounts.stream().forEach(account -> account.addObserver(this));
 
-      CashFlowApp.LOGGER.fine("Updated menu treeview");
+      CashFlowApp.LOGGER.finer("Updated menu treeview");
    }
 }
