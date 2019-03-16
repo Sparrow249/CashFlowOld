@@ -3,7 +3,7 @@ package nl.sparrow.cashflow.gui.menu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import nl.sparrow.cashflow.gui.CashFlowApp;
+import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.gui.Controller;
 import nl.sparrow.cashflow.logic.exceptions.InvalidIbanException;
 
@@ -20,7 +20,7 @@ public class AddAccountPaneController extends Controller
 
       try
       {
-         CashFlowApp.getAccountService().addAccount(iban);
+         CashFlowApp.getAppState().getAccountService().addAccount(iban);
       }
       catch (InvalidIbanException ex)
       {

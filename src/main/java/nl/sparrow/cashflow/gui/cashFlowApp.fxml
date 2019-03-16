@@ -6,7 +6,7 @@
     <center>
     </center>
     <left>
-        <fx:include fx:id="accountMenu" source="menu/accountMenu.fxml" BorderPane.alignment="CENTER"/>
+        <fx:include fx:id="accountMenu" source="menu/accountTreeMenu.fxml" BorderPane.alignment="CENTER"/>
     </left>
     <top>
         <fx:include fx:id="toolBar" source="toolBar/toolBar.fxml" BorderPane.alignment="CENTER"/>

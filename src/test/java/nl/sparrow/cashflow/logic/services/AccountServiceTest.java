@@ -1,5 +1,6 @@
 package nl.sparrow.cashflow.logic.services;
 
+import mockit.Tested;
 import nl.sparrow.cashflow.logic.exceptions.InvalidIbanException;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,11 +8,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-//@RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest
 {
-   //   @Mock
-   private AccountService accountService;
+
+   @Tested private AccountService accountService;
 
    private static final String IBAN = "NL00TEST0123456789";
 

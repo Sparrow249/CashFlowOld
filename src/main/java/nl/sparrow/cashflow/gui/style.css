@@ -1,5 +1,6 @@
 .root {
     COLOR_TOOLBAR: black;
+    COLOR_MENU: #409bae;
 }
 
 .tool-bar {
@@ -17,17 +18,22 @@
     -fx-padding: 20px;
 }
 
-.transaction-card .description-box{
-    -fx-background-color: white;
-    -fx-padding: 5px;
-}
-
-.transaction-card .title-bar{
-    -fx-padding: 5px;
-    -fx-background-color: #4682B4;
-}
-
 .overview-pane {
+}
+
+.tree-view, .tree-cell {
+    -fx-background-color: COLOR_MENU;
+    -fx-font-family: Lucida sans;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.tree-cell{
+    -fx-padding: 0.25em 0em 0.25em 0em;
+}
+
+.tree-cell:selected{
+    -fx-font-weight: bold;
 }
 
 

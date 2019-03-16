@@ -18,8 +18,8 @@ public abstract class Controller {
         return parent.getSelectedAccount();
     }
 
-    public void switchScene(String fxml) {
-        parent.switchScene(fxml);
+    public void switchScene(ContentView contentView) {
+        parent.switchScene(contentView);
     }
 
 }

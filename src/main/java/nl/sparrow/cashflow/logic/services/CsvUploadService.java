@@ -1,5 +1,6 @@
 package nl.sparrow.cashflow.logic.services;
 
+import nl.sparrow.cashflow.CashFlowApp;
 import nl.sparrow.cashflow.logic.exceptions.NoDataFoundException;
 import nl.sparrow.cashflow.logic.models.Bank;
 import nl.sparrow.cashflow.logic.models.CsvData;
@@ -13,12 +14,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import java.util.Observable;
 
-public class CsvUploadService
+public class CsvUploadService extends Observable
 {
-   private final static Logger LOGGER = Logger.getLogger(CsvUploadService.class.getName());
-
    private static final String LINE_SEPERATOR = "\",\"";
 
    private final Bank BANK;
@@ -32,7 +31,7 @@ public class CsvUploadService
 
    public void upload(File csvFile, AccountService accountService)
    {
-      LOGGER.finer("Uploading " + csvFile.getPath());
+      CashFlowApp.LOGGER.finer("Uploading " + csvFile.getPath());
       CsvData transactionData = readData(csvFile);
 
       if (transactionData.getData().isEmpty())
@@ -40,6 +39,8 @@ public class CsvUploadService
          throw new NoDataFoundException();
       }
       BANK.getMapper().map(transactionData, accountService);
+
+      CashFlowApp.LOGGER.finer("Upload succesfull");
    }
 
 
@@ -54,10 +55,10 @@ public class CsvUploadService
          {
             String[] header = reader.readLine().split(LINE_SEPERATOR);
             header = Arrays.stream(header).map(attr -> attr.toUpperCase().replace("\"", "")).toArray(String[]::new);
-//            for (int i = 0; i < header.length; i++)
-//            {
-//               header[i] = header[i].toUpperCase().replace("\"", "");
-//            }
+            //            for (int i = 0; i < header.length; i++)
+            //            {
+            //               header[i] = header[i].toUpperCase().replace("\"", "");
+            //            }
             csvData.setHeader(header);
          }
          catch (NullPointerException e)
@@ -75,7 +76,7 @@ public class CsvUploadService
       }
       catch (IOException exception)
       {
-         LOGGER.warning("Unable to read File");
+         CashFlowApp.LOGGER.warning("Unable to read File");
          exception.getStackTrace();//TODO new exception?
       }
 
@@ -88,7 +89,7 @@ public class CsvUploadService
       Map<String, String> dataMap = new HashMap<>();
       if (header.length != data.length)
       {
-         LOGGER.warning("Data komt niet overeen met de header");
+         CashFlowApp.LOGGER.warning("Data komt niet overeen met de header");
          throw new RuntimeException("Header and data are incompatible"); //TODO new exception
       }
       else
