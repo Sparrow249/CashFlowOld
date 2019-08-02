@@ -1,19 +1,23 @@
 package nl.sparrow.cashflow.gui;
 
+import java.net.URL;
+
 public enum ContentView
 {
-    ACCOUNT_OVERVIEW("content/accountOverview/accountOverview.fxml"),
-    TRANSACTION_OVERVIEW("content/transactionOverview/transactionOverview.fxml"),
+    NAVIGATION_VIEW("navigationView.fxml"),
+    ACCOUNT_OVERVIEW("content/account/accountOverview.fxml"),
+    TRANSACTION_TABLE_VIEW("content/transaction/transactionTableView.fxml"),
     CSV_UPLOAD_VIEW("dialog/csvUploadView/csvUploadView.fxml");
 
     private String fxmlPath;
 
-    ContentView(String path) {
+    ContentView(String path)
+    {
         this.fxmlPath = path;
     }
 
-    public String getFxmlPath()
+    public URL getFxmlURL()
     {
-        return fxmlPath;
+        return getClass().getResource(fxmlPath);
     }
 }

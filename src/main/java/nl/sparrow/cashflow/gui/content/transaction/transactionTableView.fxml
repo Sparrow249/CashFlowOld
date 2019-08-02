@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="nl.sparrow.cashflow.gui.content.transactionOverview.TransactionOverviewController">
+            fx:controller="nl.sparrow.cashflow.gui.content.transaction.TransactionTableViewController">
     <children>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">

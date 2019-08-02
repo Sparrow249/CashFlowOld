@@ -1,7 +1,7 @@
 package nl.sparrow.cashflow.logic.exceptions;
 
-public class NoDataFoundException extends RuntimeException {
+public class NoDataFoundException extends TechnicalException {
     public NoDataFoundException(){
-        super("Er kon geen data gevonden worden");
+        super(ExceptionMessage.NO_DATA_FOUND);
     }
 }
