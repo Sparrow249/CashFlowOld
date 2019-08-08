@@ -11,9 +11,7 @@ import nl.sparrow.cashflow.logic.transaction.Transaction;
 import nl.sparrow.cashflow.logic.transaction.TransactionDao;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 
 public class TransactionTableViewController
 {
@@ -27,32 +25,36 @@ public class TransactionTableViewController
     @FXML
     private TableColumn<Transaction, Double> tbcAmount;
 
+    private static final TransactionDao transactionDao = new TransactionDao();
+
     public void initialize()
     {
         tbcDescription.setCellValueFactory(new PropertyValueFactory<>(Transaction.InstanceField.description));
         tbcAmount.setCellValueFactory(new PropertyValueFactory<>(Transaction.InstanceField.amount));
         tbcDate.setCellValueFactory(new PropertyValueFactory<>(Transaction.InstanceField.date));
-        tbTransactions.getSortOrder().add(tbcDate);
+        tbTransactions.getSortOrder()
+            .add(tbcDate);
         update();
     }
 
 
     private ObservableList<Transaction> getTableData()
     {
-        return FXCollections.observableArrayList(TransactionDao.getInstance()
-                                                     .fetchAll());
+        return FXCollections.observableArrayList(transactionDao.fetchAll());
     }
 
     private SortedList<Transaction> getSortedData(ObservableList<Transaction> dataList, Comparator<Transaction> comparator)
     {
         SortedList<Transaction> sortedList = new SortedList<>(dataList, comparator);
-        sortedList.comparatorProperty().bind(tbTransactions.comparatorProperty());
+        sortedList.comparatorProperty()
+            .bind(tbTransactions.comparatorProperty());
         return sortedList;
     }
 
     private void update()
     {
-        SortedList<Transaction> sortedData = getSortedData(getTableData(), Comparator.comparing(Transaction::getDate));
+        ObservableList<Transaction> tableData = getTableData();
+        SortedList<Transaction> sortedData = getSortedData(tableData, Comparator.comparing(Transaction::getDate));
         tbTransactions.setItems(sortedData);
     }
 }

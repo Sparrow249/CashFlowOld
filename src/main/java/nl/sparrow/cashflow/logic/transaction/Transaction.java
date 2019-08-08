@@ -1,6 +1,6 @@
 package nl.sparrow.cashflow.logic.transaction;
 
-import com.sun.istack.internal.NotNull;
+import nl.sparrow.cashflow.logic.category.Category;
 
 import java.time.LocalDate;
 
@@ -9,11 +9,11 @@ import static java.util.Objects.requireNonNull;
 public final class Transaction
 {
     private final String iban;
-    private final double amount;
+    private final Double amount;
     private final LocalDate date;
     private final String ibanOther;
     private final String nameOther;
-    private final String category;
+    private final Category category;
     private final String description;
 
 
@@ -28,8 +28,12 @@ public final class Transaction
         this.description = builder.description;
     }
 
+    public String getIban()
+    {
+        return iban;
+    }
 
-    public double getAmount()
+    public Double getAmount()
     {
         return amount;
     }
@@ -58,12 +62,12 @@ public final class Transaction
         return nameOther;
     }
 
-    public String getCategory()
+    public Category getCategory()
     {
         return category;
     }
 
-    public Transaction changeCategory(String category)
+    public Transaction changeCategory(Category category)
     {
         return new Builder(this)
             .setCategory(category)
@@ -111,30 +115,30 @@ public final class Transaction
 
     public static class Builder
     {
-        @NotNull
         private String iban;
-        private double amount;
-        @NotNull
-        private LocalDate date;
-        @NotNull
         private String ibanOther;
+        private Double amount;
+        private LocalDate date;
         private String nameOther;
-        private String category;
+        private Category category;
         private String description;
 
-        public Builder()
-        {
-        }
+        public Builder() {}
 
-        public Builder(Transaction t)
+        /**
+         * Transaction Builder constructor to start from a copy of another Transaction
+         *
+         * @param transaction Transaction to copy
+         */
+        public Builder(Transaction transaction)
         {
-            this.iban = t.iban;
-            this.amount = t.amount;
-            this.date = t.date;
-            this.ibanOther = t.ibanOther;
-            this.nameOther = t.nameOther;
-            this.category = t.category;
-            this.description = t.description;
+            this.iban = transaction.iban;
+            this.amount = transaction.amount;
+            this.date = transaction.date;
+            this.ibanOther = transaction.ibanOther;
+            this.nameOther = transaction.nameOther;
+            this.category = transaction.category;
+            this.description = transaction.description;
         }
 
         public Builder setIban(String iban)
@@ -143,7 +147,7 @@ public final class Transaction
             return this;
         }
 
-        public Builder setAmount(double amount)
+        public Builder setAmount(Double amount)
         {
             this.amount = amount;
             return this;
@@ -167,7 +171,7 @@ public final class Transaction
             return this;
         }
 
-        public Builder setCategory(String category)
+        public Builder setCategory(Category category)
         {
             this.category = category;
             return this;
@@ -180,12 +184,23 @@ public final class Transaction
             return this;
         }
 
-
-        public Transaction build()
+        /**
+         * builds a Transaction from this builder object
+         *
+         * @return new Transaction
+         * @throws NullPointerException if a required field is null
+         */
+        public Transaction build() throws NullPointerException
         {
             requireNonNull(iban);
             requireNonNull(ibanOther);
             requireNonNull(date);
+            requireNonNull(amount);
+
+            if (category == null)
+            {
+                category = Category.OTHER;
+            }
 
             return new Transaction(this);
         }

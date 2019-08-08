@@ -1,7 +1,7 @@
 package nl.sparrow.cashflow.logic.upload;
 
-import nl.sparrow.cashflow.logic.upload.mappers.CsvDataConsumer;
-import nl.sparrow.cashflow.logic.upload.mappers.RaboCsvDataConsumer;
+import nl.sparrow.cashflow.logic.upload.consumers.CsvDataConsumer;
+import nl.sparrow.cashflow.logic.upload.consumers.RaboCsvDataConsumer;
 import org.apache.commons.csv.CSVFormat;
 
 public enum Bank

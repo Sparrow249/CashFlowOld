@@ -1,8 +1,5 @@
-package nl.sparrow.cashflow.logic.upload.mappers;
+package nl.sparrow.cashflow.logic.upload.consumers;
 
-import nl.sparrow.cashflow.CashFlowApp;
-import nl.sparrow.cashflow.logic.exceptions.ExceptionMessage;
-import nl.sparrow.cashflow.logic.exceptions.TechnicalException;
 import nl.sparrow.cashflow.logic.transaction.Transaction;
 import nl.sparrow.cashflow.logic.transaction.TransactionDao;
 import org.apache.commons.csv.CSVRecord;
@@ -11,8 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RaboCsvDataConsumer implements CsvDataConsumer
@@ -30,13 +25,15 @@ public class RaboCsvDataConsumer implements CsvDataConsumer
 
     private static final DateTimeFormatter DATUM_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private TransactionDao transactionDao = new TransactionDao();
+
     @Override
     public void accept(List<CSVRecord> csvRecords)
     {
         csvRecords.stream()
             .map(this::mapCSVRecordToTransaction)
-            .peek(TransactionDao.getInstance()::insert)
-            .forEach(t -> logger.debug("Transaction added: "+t));
+            .peek(transactionDao::insert)
+            .forEach(t -> logger.debug("Transaction added: " + t));
     }
 
     private Transaction mapCSVRecordToTransaction(CSVRecord csvRecord)
@@ -52,24 +49,24 @@ public class RaboCsvDataConsumer implements CsvDataConsumer
             .build();
     }
 
-    @Override
-    public boolean hasHeader(List<String> header)
-    {
-        List<String> upperCaseHeader = new ArrayList<>();
-
-        header.forEach(field -> upperCaseHeader.add(field.toUpperCase()));
-
-        List<String> expectedHeader = Arrays.asList(
-            A_IBAN,
-            T_AMOUNT,
-            T_DESCRIPTION_1,
-            T_DESCRIPTION_2,
-            T_DESCRIPTION_3,
-            T_OTHER_IBAN,
-            T_OTHER_NAME,
-            T_DATE
-        );
-
-        return upperCaseHeader.containsAll(expectedHeader);
-    }
+//    @Override
+//    public boolean hasHeader(List<String> header)
+//    {
+//        List<String> upperCaseHeader = new ArrayList<>();
+//
+//        header.forEach(field -> upperCaseHeader.add(field.toUpperCase()));
+//
+//        List<String> expectedHeader = Arrays.asList(
+//            A_IBAN,
+//            T_AMOUNT,
+//            T_DESCRIPTION_1,
+//            T_DESCRIPTION_2,
+//            T_DESCRIPTION_3,
+//            T_OTHER_IBAN,
+//            T_OTHER_NAME,
+//            T_DATE
+//        );
+//
+//        return upperCaseHeader.containsAll(expectedHeader);
+//    }
 }

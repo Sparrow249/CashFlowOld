@@ -1,18 +1,20 @@
-package nl.sparrow.cashflow.logic.upload;
+package nl.sparrow.cashflow.logic.upload.parsers;
 
 import nl.sparrow.cashflow.logic.exceptions.ExceptionMessage;
 import nl.sparrow.cashflow.logic.exceptions.TechnicalException;
-import nl.sparrow.cashflow.logic.upload.mappers.CsvDataConsumer;
+import nl.sparrow.cashflow.logic.upload.Bank;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
-public class CsvUploader
+public class BankFileCsvParser
 {
-    public boolean upload(File file, Bank bank)
+    public List<CSVRecord> parse(File file, Bank bank)
     {
         CSVFormat csvFormat = bank.getCsvFormat()
             .withHeader()
@@ -20,19 +22,7 @@ public class CsvUploader
 
         try (FileReader reader = new FileReader(file))
         {
-            CSVParser parser = CSVParser.parse(reader, csvFormat);
-
-            CsvDataConsumer consumer = bank.getCsvDataConsumer();
-
-            if (consumer.hasHeader(parser.getHeaderNames()))
-            {
-                consumer.accept(parser.getRecords());
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return CSVParser.parse(reader, csvFormat).getRecords();
         }
         catch (IOException e)
         {

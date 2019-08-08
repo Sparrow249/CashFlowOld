@@ -8,28 +8,10 @@ import java.util.stream.Collectors;
 
 public class TransactionDao implements Dao<Transaction>
 {
-    private static TransactionDao instance;
-
-    private List<Transaction> transactionList = new ArrayList<>();
-
-    private TransactionDao(){}
-
-    public static TransactionDao getInstance()
-    {
-        if(instance == null){
-            synchronized (TransactionDao.class)
-            {
-                if (instance == null)
-                {
-                    instance = new TransactionDao();
-                }
-            }
-        }
-        return instance;
-    }
+    private static List<Transaction> transactionList = new ArrayList<>();
 
     @Override
-    public List<Transaction> fetch(Predicate<Transaction> filter)
+    public List<Transaction> fetchAll(Predicate<Transaction> filter)
     {
         return transactionList.stream().filter(filter).collect(Collectors.toList());
     }

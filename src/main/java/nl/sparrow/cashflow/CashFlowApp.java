@@ -7,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.sparrow.cashflow.gui.ContentView;
 import nl.sparrow.cashflow.logic.upload.Bank;
-import nl.sparrow.cashflow.logic.upload.CsvUploader;
+import nl.sparrow.cashflow.logic.upload.uploaders.CsvUploader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 
 public class CashFlowApp extends Application

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import nl.sparrow.cashflow.logic.upload.Bank;
-import nl.sparrow.cashflow.logic.upload.CsvUploader;
+import nl.sparrow.cashflow.logic.upload.uploaders.CsvUploader;
 
 import java.io.File;
 
